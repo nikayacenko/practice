@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать вакансию</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/style/style.css}">
+    <!-- <link rel="icon" th:href="@{/styles/logo.ico}" type="image/x-icon"> -->
+</head>
+<body>
+<div class="content_add container-fluid mt-sm-0">
+<h1>Редактировать вакансию</h1>
+<form th:action="@{/update/{id}(id=${vacs.id})}" th:method="post" enctype="multipart/form-data" th:object="${vacs}">
+    <input type="hidden" th:field="*{id}" />  <!-- Скрытое поле для ID -->
+    <label>
+        Название:<br/>
+        <input type="text" th:field="*{title}" placeholder="Название"/>
+        <span th:if="${titleError != null}" th:text="${titleError}" class="text-danger"></span>
+    </label><br/>
+    <label>
+        Компания:<br/>
+        <input type="text" th:field="*{company}" placeholder="Компания"/>
+        <span th:if="${companyError != null}" th:text="${companyError}" class="text-danger"></span>
+    </label><br/>
+        Описание:<br/>
+        <textarea th:field="*{description}" placeholder="Описание"></textarea>
+        <span th:if="${descriptionError != null}" th:text="${descriptionError}" class="text-danger"></span>
+    </label><br/>
+    <label>
+        Зарплата:<br/>
+        <input type="number" th:field="*{salary}" placeholder="Зарплата"/>
+        <span th:if="${salaryError != null}" th:text="${salaryError}" class="text-danger"></span>
+    </label><br/>
+    <label>
+        Классификация профессии:<br/>
+        <input type="text" th:field="*{type}" placeholder="Классификация профессии"/>
+        <span th:if="${typeYearError != null}" th:text="${type}" class="text-danger"></span>
+    </label><br/>
+    <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> -->
+    <input type="submit" value="Изменить"/>
+</form>
+</div>
+</body>
+</html>

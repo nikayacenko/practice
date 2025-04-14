@@ -1,0 +1,42 @@
+CREATE TABLE interview_requests (
+    id BIGSERIAL PRIMARY KEY,
+    vacancy_id BIGINT NOT NULL,
+    student_id BIGINT NOT NULL,
+    employer_id BIGINT NOT NULL,
+    message TEXT,
+    status VARCHAR(50) NOT NULL DEFAULT 'PENDING',  -- PENDING, ACCEPTED, REJECTED
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() at time zone 'utc'),
+    FOREIGN KEY (vacancy_id) REFERENCES vacancies(id),
+    FOREIGN KEY (student_id) REFERENCES users(id),
+    FOREIGN KEY (employer_id) REFERENCES users(id)
+);
+
+CREATE TABLE roles (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL
+);
+CREATE TABLE users (
+    id BIGSERIAL PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone_number VARCHAR(20),  -- Номер телефона (необязательный)
+    company_description TEXT   -- Описание компании (необязательное)
+);
+CREATE TABLE users_roles (
+    user_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
+    PRIMARY KEY (user_id, role_id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+CREATE TABLE vacancies (
+    id BIGSERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    company VARCHAR(255) NOT NULL,
+    salary DECIMAL,
+    employer_id BIGINT NOT NULL,
+    FOREIGN KEY (employer_id) REFERENCES users(id)
+);
+ALTER TABLE interview_requests ADD COLUMN employer_response TEXT;

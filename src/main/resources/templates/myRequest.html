@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Page</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script
+          src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" th:href="@{/style/style.css}">
+  <script th:src="@{/js/my.js}"></script>
+</head>
+<body>
+    <h1>Отправленные запросы на собеседование</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Вакансия</th>
+            <th>Сообщение</th>
+            <th>Статус</th>
+            <th>Дата отправки</th>
+            <th>Ответ работодателя</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="request : ${sentReq}">
+            <td th:text="${request.vacancy.title}"></td>
+            <td th:text="${request.message}"></td>
+            <td th:text="${request.status}"></td>
+            <td th:text="${request.createdAt}"></td>
+            <td th:text="${request.employerResponse != null ? request.employerResponse : 'Нет ответа'}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/">На главную</a>
+    </body>
+    </html>

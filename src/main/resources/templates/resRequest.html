@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Page</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script
+          src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" th:href="@{/style/style.css}">
+  <script th:src="@{/js/my.js}"></script>
+</head>
+<body>
+    <h1>Полученные запросы на собеседование</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Студент</th>
+            <th>Вакансия</th>
+            <th>Сообщение</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="request : ${receivedReq}">
+            <td th:text="${request.student.username}"></td>
+            <td th:text="${request.vacancy.title}"></td>
+            <td th:text="${request.message}"></td>
+            <td th:text="${request.status}"></td>
+            <td>
+                <form th:action="@{/resRequest/{id}/update-status(id=${request.id})}" method="post">
+                    <div class="form-group">
+                        <label for="employerResponse">Сообщение работодателя:</label>
+                        <textarea class="form-control" id="employerResponse" name="employerResponse" rows="3"
+                        th:text="${request.employerResponse}" th:disabled="${request.status != 'PENDING'}"></textarea>
+                    </div>
+                    <button type="submit" name="status" value="ACCEPTED"
+                            th:disabled="${request.status != 'PENDING'}">Принять</button>
+                    <button type="submit" name="status" value="REJECTED"
+                            th:disabled="${request.status != 'PENDING'}">Отклонить</button>
+                    <button type="submit" name="action" value="DELETE"
+                            th:if="${request.status != 'PENDING'}">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/">На главную</a>
+    </body>
+    </html>

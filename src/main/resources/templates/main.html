@@ -1,0 +1,100 @@
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Биржа труда для студентов</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>Вакансии для студентов</h1>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Название</th>
+      <th>Компания</th>
+      <th>Описание</th>
+      <th>Зарплата</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vacancy : ${vacancies}">
+      <td th:text="${vacancy.title}"></td>
+      <td th:text="${vacancy.company}"></td>
+      <td th:text="${vacancy.description}"></td>
+      <td th:text="${vacancy.salary != null ? vacancy.salary : 'Не указана'}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+>-->
+
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Page</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script
+          src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" th:href="@{/style/style.css}">
+  <!--<script th:src="@{/js/my.js}"></script>-->
+</head>
+<body>
+<div class="container-fluid page px-sm-0">
+  <header>
+    <img id="logo" src="/images/logo.png" alt="logo" width="100px">
+    <h2>Биржа вакансий</h2>
+    <nav>
+      <ul class="but px-3 mx-sm-2">
+        <li><a th:href="@{/myVacancy}">Мои вакансии</a></li>
+        <li><a th:href="@{/myRequest}">Мои запросы</a></li>
+        <li><a th:href="@{/resRequest}">Полученные запросы</a></li>
+        <li><form th:action="@{/logout}" method="post">
+          <input type="submit" value="Выйти"/>
+        </form></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="content container-fluid">
+    <h1>Все вакансии</h1>
+    <div class="filter">
+      <form th:action="@{/main}" method="get">
+        <label for="title">Название:</label>
+        <input type="text" id="title" name="title" th:value="${title}">
+
+        <label for="company">Компания:</label>
+        <input type="text" id="company" name="company" th:value="${company}">
+
+        <button type="submit">Поиск</button>
+      </form>
+    </div>
+    <div class="row d-flex">
+      <div th:each="vacancy : ${vacs}" class="col-md-3 p-2 ">
+        <div class="vac p-4">
+          <!--<span th:text="${vacancy.ownerUsername}"></span>-->
+          <span class="min">Название вакансии</span><br>
+          <h3 th:text="${vacancy.title}"></h3>
+          <span class="min">Компания</span>
+          <h3 th:text="${vacancy.company}"></h3><br>
+          <span class="min">Описание</span>
+          <br><span th:text="${vacancy.description}"></span><br>
+          <form th:action="@{/vacancies/{vacancyId}/apply(vacancyId=${vacancy.id})}" method="post">
+            <div class="form-group">
+              <label for="message">Сообщение работодателю:</label>
+              <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить заявку</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Page</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script
+          src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" th:href="@{/style/style.css}">
+  <script th:src="@{/js/my.js}"></script>
+</head>
+<body>
+<div class="container-fluid page px-sm-0">
+    <header>
+        <img id="logo" src="/images/logo.png" alt="logo" width="100px">
+        <h2>Биржа вакансий</h2>
+        <nav>
+            <ul class="but px-3 mx-sm-2">
+                <li><form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Выйти"/>
+                </form></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content container-fluid px-5">
+        <div id="actions">
+            <div id="arrow">
+                <img src="/images/free-icon-left-arrow-109618.png" alt="Стрелка" width="25px">
+                <a th:href="@{/}">На главную</a>
+            </div>
+            <button id="MyVacAdd">Добавить</button>
+        </div>
+        <div th:each="error : ${errors}">
+            <div th:text="${errors}"></div>
+        </div>
+        <div id="formSearchingContainer1"></div>
+        <h1>Список моих вакансий</h1>
+        <div class="row d-flex">
+            <div th:each="vac : ${MyVac}" class="col-md-3 p-2 ">
+                <div class="vac p-4">
+                    <span th:text="${vac.getEmployerUsername}"></span>
+                    <h3 th:text="${vac.getTitle}"></h3>
+                    <span class="min">Company</span><br>
+                    <span th:text="${vac.company}"></span><br>
+                    <span class="min">Описание</span>
+                    <br><span th:text="${vac.description}"></span><br>
+                </div>
+                <div class="upANDdel">
+                        <a th:href="@{update/{id}(id=${vac.getId})}">Изменить</a>
+                        <form th:action="@{/myVacancy}" method="post">
+                            <input type="submit" value="Удалить">
+                            <input type="hidden" name="id" th:value="${vac.getId}"/>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

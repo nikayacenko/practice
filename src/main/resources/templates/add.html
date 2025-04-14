@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Vacancy Form</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/style/style.css}">
+</head>
+<body>
+<div class="content_add container-fluid mt-sm-0">
+    <form th:action="@{/add}" method="post" enctype="multipart/form-data">
+        <label>
+            Название:<br/>
+            <input type="text" name="title" th:value="${title}" placeholder="Название"/>
+            <span th:if="${titleError != null}" th:text="${titleError}" class="text-danger"></span>
+        </label><br/>
+        <label>
+            Компания:<br/>
+            <input type="text" name="company" th:value="${company}" placeholder="Компания"/>
+            <span th:if="${companyError != null}" th:text="${companyError}" class="text-danger"></span>
+        </label><br/>
+        <label>
+            <!-- Навыки:<br/>
+            <input type="text" name="isbn" th:value="${isbn}" placeholder="ISBN"/>
+            <span th:if="${isbnError != null}" th:text="${isbnError}" class="text-danger"></span>
+        </label><br/>
+        <label> -->
+            Описание:<br/>
+            <textarea name="description" th:text="${description}" placeholder="Описание"></textarea>
+            <span th:if="${descriptionError != null}" th:text="${descriptionError}" class="text-danger"></span>
+        </label><br/>
+        <label>
+            Зарплата:<br/>
+            <input type="number" name="salary" th:value="${salary}" placeholder="Зарплата"/>
+            <span th:if="${salaryError != null}" th:text="${salaryError}" class="text-danger"></span>
+        </label><br/>
+        <label>
+            Тип профессии:<br/>
+            <input type="text" name="type" th:value="${type}" placeholder="Тип профессии"/>
+            <span th:if="${typeError != null}" th:text="${typeError}" class="text-danger"></span>
+        </label><br/>>
+
+        <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> -->
+        <input type="submit" value="Добавить"/>
+    </form>
+</div>
+</body>
+</html>

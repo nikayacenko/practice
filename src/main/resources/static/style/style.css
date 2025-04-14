@@ -1,0 +1,43 @@
+#logo{
+    margin:10px;
+    float:left;
+}
+body{
+    background-color: rgba(147, 128, 255, 0.51);
+    background-image: url("../images/фон.jpg");
+    background-attachment:fixed;
+    background-size: cover;
+}
+.content{
+    background-color: rgba(147, 128, 255, 0.51);
+    max-width:90%;
+    margin-top:3%;
+    padding-top:15px;
+    padding-bottom:15px;
+    border-radius: 15px;
+}
+
+.but{
+    float: left;
+}
+
+header
+{
+    background-color:rgba(147, 128, 255, 0.808);
+    width:100%;
+    height:120px;
+}
+header h2{
+    color:#95d5b2;
+    padding: 40px 40px 40px 10px;
+}
+
+.vac{
+    background-color: #d8d8f3;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin:auto;
+}
+.vac h3{
+    font-size: 1rem;
+}
